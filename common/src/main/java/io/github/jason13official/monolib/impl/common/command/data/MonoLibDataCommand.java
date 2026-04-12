@@ -1,5 +1,9 @@
 package io.github.jason13official.monolib.impl.common.command.data;
 
+import com.mojang.brigadier.Command;
+import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.StringArgumentType;
+import com.mojang.brigadier.context.CommandContext;
 import io.github.jason13official.monolib.Constants;
 import io.github.jason13official.monolib.MonoLib;
 import io.github.jason13official.monolib.impl.common.ModConfig;
@@ -7,10 +11,6 @@ import io.github.jason13official.monolib.impl.common.command.ModCommands;
 import io.github.jason13official.monolib.impl.common.command.data.arg.FormatArgument;
 import io.github.jason13official.monolib.impl.common.command.data.arg.SlotArgument;
 import io.github.jason13official.monolib.impl.common.util.GsonConfigMapper;
-import com.mojang.brigadier.Command;
-import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.StringArgumentType;
-import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;

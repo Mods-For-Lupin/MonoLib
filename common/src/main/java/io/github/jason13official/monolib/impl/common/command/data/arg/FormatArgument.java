@@ -1,8 +1,5 @@
 package io.github.jason13official.monolib.impl.common.command.data.arg;
 
-import io.github.jason13official.monolib.api.common.command.IEnumCommandArg;
-import io.github.jason13official.monolib.impl.common.command.data.MonoLibDataCommand.ItemFormat;
-import io.github.jason13official.monolib.impl.common.serialization.codecs.map.MapCodecs;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -12,6 +9,9 @@ import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
+import io.github.jason13official.monolib.api.common.command.IEnumCommandArg;
+import io.github.jason13official.monolib.impl.common.command.data.MonoLibDataCommand.ItemFormat;
+import io.github.jason13official.monolib.impl.common.serialization.codecs.map.MapCodecs;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.StringJoiner;
@@ -75,7 +75,8 @@ public enum FormatArgument implements IEnumCommandArg {
       }
 
       final T value = mapper.apply(stack, level);
-      final JsonElement json = codec.encodeStart(RegistryOps.create(JsonOps.INSTANCE, level.registryAccess()), value).getOrThrow(false, err -> {});
+      final JsonElement json = codec.encodeStart(RegistryOps.create(JsonOps.INSTANCE, level.registryAccess()), value).getOrThrow(false, err -> {
+      });
       final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
       return Component.literal(gson.toJson(json)).withStyle(style -> style.withClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, gson.toJson(json))));

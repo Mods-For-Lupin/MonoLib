@@ -14,8 +14,8 @@ import org.apache.commons.io.FilenameUtils;
 
 public class Sailing {
 
-  private static boolean verified = false;
   private static final Map<String, String> FILENAME_BY_MOD_ID = new LinkedHashMap<>();
+  private static boolean verified = false;
 
   public static void register(String modId, String expectedFilename) {
     if (!FILENAME_BY_MOD_ID.containsKey(modId)) {

@@ -1,11 +1,11 @@
 package io.github.jason13official.monolib.impl.common.command;
 
+import com.mojang.brigadier.CommandDispatcher;
 import io.github.jason13official.monolib.Constants;
 import io.github.jason13official.monolib.MonoLib;
 import io.github.jason13official.monolib.impl.common.ModConfig;
 import io.github.jason13official.monolib.impl.common.command.data.MonoLibDataCommand;
 import io.github.jason13official.monolib.impl.common.util.GsonConfigMapper;
-import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands.CommandSelection;

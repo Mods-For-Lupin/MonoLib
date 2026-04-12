@@ -1,10 +1,10 @@
 package io.github.jason13official.monolib.impl.common.command.data.arg;
 
-import io.github.jason13official.monolib.api.common.command.IEnumCommandArg;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
+import io.github.jason13official.monolib.api.common.command.IEnumCommandArg;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
