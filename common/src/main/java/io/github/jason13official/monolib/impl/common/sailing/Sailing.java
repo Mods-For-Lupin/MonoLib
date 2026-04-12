@@ -51,10 +51,12 @@ public class Sailing {
     Constants.LOG.info("You a receiving this message because one or more of your mod files may have been altered and possibly not downloaded from an original and safe source.");
     Constants.LOG.info("Unofficial sources can contain malicious software or host outdated versions of mods, as well as removing ad revenue from mod authors.");
     Constants.LOG.info("Check out https://stopmodreposts.github.io/ for more information on why this feature exists.");
+    Constants.LOG.info("Disable this check by updating 'config/monolib-server.json'");
 
     Constants.LOG.warn("You a receiving this message because one or more of your mod files may have been altered and possibly not downloaded from an original and safe source.");
     Constants.LOG.warn("Unofficial sources can contain malicious software or host outdated versions of mods, as well as removing ad revenue from mod authors.");
     Constants.LOG.warn("Check out https://stopmodreposts.github.io/ for more information on why this feature exists.");
+    Constants.LOG.info("Disable this check by updating 'config/monolib-server.json'");
 
     verified = true;
   }
