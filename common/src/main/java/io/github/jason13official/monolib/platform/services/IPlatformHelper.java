@@ -1,6 +1,7 @@
 package io.github.jason13official.monolib.platform.services;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Supplier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -48,6 +49,8 @@ public interface IPlatformHelper {
 
     return getGameDirectory().resolve("config");
   }
+
+  List<Path> getInstalledModPaths();
 
   CreativeModeTab.Builder tabBuilder();
 

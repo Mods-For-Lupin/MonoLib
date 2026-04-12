@@ -7,6 +7,7 @@ import io.github.jason13official.monolib.impl.common.registry.ModMenus;
 import io.github.jason13official.monolib.impl.common.registry.ModParticles;
 import io.github.jason13official.monolib.impl.common.registry.ModTabs;
 import io.github.jason13official.monolib.impl.common.registry.ModTiles;
+import io.github.jason13official.monolib.impl.common.sailing.Sailing;
 import io.github.jason13official.monolib.impl.common.util.GsonConfigMapper;
 import io.github.jason13official.monolib.platform.Services;
 import java.util.function.BiConsumer;
@@ -21,6 +22,8 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
+import net.minecraftforge.event.server.ServerStartedEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -48,6 +51,10 @@ public class MonoLibForge {
 
     MinecraftForge.EVENT_BUS.addListener((Consumer<AddReloadListenerEvent>) event -> {
       event.addListener(new ResourceReloadListener());
+    });
+
+    EVENT_BUS.addListener((Consumer<ServerStartedEvent>) event -> {
+      Sailing.verifyAndAlert();
     });
 
     if (FMLLoader.getDist() == Dist.CLIENT) {

@@ -1,7 +1,10 @@
 package io.github.jason13official.monolib.platform;
 
+import io.github.jason13official.monolib.Constants;
 import io.github.jason13official.monolib.platform.services.IPlatformHelper;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Supplier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -37,6 +40,19 @@ public class ForgePlatformHelper implements IPlatformHelper {
   public Path getGameDirectory() {
 
     return FMLLoader.getGamePath();
+  }
+
+  @Override
+  public List<Path> getInstalledModPaths() {
+
+    List<Path> paths = new ArrayList<>();
+
+    FMLLoader.getLoadingModList().getMods().forEach(modInfo -> {
+      // Constants.LOG.info("{}", modInfo.getOwningFile().getFile().getFilePath());
+      paths.add(modInfo.getOwningFile().getFile().getFilePath());
+    });
+
+    return paths;
   }
 
   @Override

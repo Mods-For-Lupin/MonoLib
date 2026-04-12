@@ -1,6 +1,7 @@
 package io.github.jason13official.monolib;
 
 import io.github.jason13official.monolib.impl.common.ModConfig;
+import io.github.jason13official.monolib.impl.common.sailing.Sailing;
 import io.github.jason13official.monolib.impl.common.util.GsonConfigMapper;
 import io.github.jason13official.monolib.platform.Services;
 import net.minecraft.resources.ResourceLocation;
@@ -13,9 +14,15 @@ public class MonoLib {
 
     // load config on mod loaded / startup
     GsonConfigMapper.loadAll(Services.PLATFORM.getConfigDirectory());
+
+    Sailing.register(Constants.MOD_ID, createFilename(Constants.MOD_ID, "1.20.1", "4.0.0"));
   }
 
   public static ResourceLocation identifier(final String path) {
     return new ResourceLocation(Constants.MOD_ID, path);
+  }
+
+  public static String createFilename(String modId, String mcVersion, String modVersion) {
+    return modId + "-merged-" + mcVersion + "-" + modVersion + ".jar";
   }
 }

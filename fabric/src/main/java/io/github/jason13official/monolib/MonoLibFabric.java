@@ -7,13 +7,18 @@ import io.github.jason13official.monolib.impl.common.registry.ModMenus;
 import io.github.jason13official.monolib.impl.common.registry.ModParticles;
 import io.github.jason13official.monolib.impl.common.registry.ModTabs;
 import io.github.jason13official.monolib.impl.common.registry.ModTiles;
+import io.github.jason13official.monolib.impl.common.sailing.Sailing;
 import io.github.jason13official.monolib.impl.common.util.GsonConfigMapper;
 import io.github.jason13official.monolib.platform.Services;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
+import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
+import net.fabricmc.loader.api.metadata.ModOrigin.Kind;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -36,6 +41,10 @@ public class MonoLibFabric implements ModInitializer {
     MonoLib.init();
 
     ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new ResourceReloadListener());
+
+    ServerLifecycleEvents.SERVER_STARTED.register(server -> {
+      Sailing.verifyAndAlert();
+    });
   }
 
   public <T> void bind(Registry<T> registry, Consumer<BiConsumer<T, ResourceLocation>> source) {
