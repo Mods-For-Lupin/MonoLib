@@ -27,11 +27,11 @@ import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.registries.RegisterEvent;
 
 @Mod(Constants.MOD_ID)
-public class ExampleModForge {
+public class MonoLibForge {
 
   public static IEventBus EVENT_BUS;
 
-  public ExampleModForge(final FMLJavaModLoadingContext context) {
+  public MonoLibForge(final FMLJavaModLoadingContext context) {
     EVENT_BUS = context.getModEventBus();
 
     bind(Registries.BLOCK, ModBlocks::register);
@@ -42,20 +42,20 @@ public class ExampleModForge {
     bind(Registries.MENU, ModMenus::register);
     bind(Registries.CREATIVE_MODE_TAB, ModTabs::register);
 
-    EVENT_BUS.addListener((Consumer<FMLCommonSetupEvent>) event -> ExampleMod.init());
+    EVENT_BUS.addListener((Consumer<FMLCommonSetupEvent>) event -> MonoLib.init());
 
     MinecraftForge.EVENT_BUS.addListener((Consumer<AddReloadListenerEvent>) event -> {
       event.addListener(new ResourceReloadListener());
     });
 
     if (FMLLoader.getDist() == Dist.CLIENT) {
-      new ExampleModClientForge(EVENT_BUS);
+      new MonoLibClientForge(EVENT_BUS);
     }
   }
 
   @Deprecated
   @SuppressWarnings("all")
-  public ExampleModForge() {
+  public MonoLibForge() {
     this(FMLJavaModLoadingContext.get());
   }
 
@@ -72,7 +72,7 @@ public class ExampleModForge {
 
     @Override
     public String getName() {
-      return ExampleMod.identifier(Constants.MOD_ID).toString();
+      return MonoLib.identifier(Constants.MOD_ID).toString();
     }
 
     @Override

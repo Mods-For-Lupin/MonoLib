@@ -18,7 +18,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
 
-public class ExampleModFabric implements ModInitializer {
+public class MonoLibFabric implements ModInitializer {
 
   @Override
   public void onInitialize() {
@@ -31,7 +31,7 @@ public class ExampleModFabric implements ModInitializer {
     bind(BuiltInRegistries.MENU, ModMenus::register);
     bind(BuiltInRegistries.CREATIVE_MODE_TAB, ModTabs::register);
 
-    ExampleMod.init();
+    MonoLib.init();
 
     ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new ResourceReloadListener());
   }
@@ -45,7 +45,7 @@ public class ExampleModFabric implements ModInitializer {
 
     @Override
     public ResourceLocation getFabricId() {
-      return ExampleMod.identifier(Constants.MOD_ID);
+      return MonoLib.identifier(Constants.MOD_ID);
     }
 
     @Override

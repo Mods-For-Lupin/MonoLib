@@ -16,10 +16,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "io.github.jason13official.monolib.ExampleModFabric"
+      "io.github.jason13official.monolib.MonoLibFabric"
     ],
     "client": [
-      "io.github.jason13official.monolib.ExampleModClientFabric"
+      "io.github.jason13official.monolib.MonoLibClientFabric"
     ]
   },
   "mixins": [
@@ -30,8 +30,7 @@
     "fabricloader": ">=0.14",
     "fabric": "*",
     "minecraft": "${fabric_minecraft_version_range}",
-    "java": ">=17",
-    "monolib": "*"
+    "java": ">=17"
   },
   "suggests": {
     "another-mod": "*"

@@ -4,10 +4,10 @@ import java.util.function.Consumer;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
-public class ExampleModClientForge {
+public class MonoLibClientForge {
 
-  public ExampleModClientForge(final IEventBus modEventBus) {
+  public MonoLibClientForge(final IEventBus modEventBus) {
 
-    modEventBus.addListener((Consumer<FMLClientSetupEvent>) event -> ExampleModClient.init());
+    modEventBus.addListener((Consumer<FMLClientSetupEvent>) event -> MonoLibClient.init());
   }
 }
