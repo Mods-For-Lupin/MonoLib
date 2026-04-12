@@ -21,3 +21,8 @@ build
 # other
 eclipse
 run
+
+.barry-allen
+mc_decomp
+fabric/fabric_api_source
+forge/mc_forge_decomp
