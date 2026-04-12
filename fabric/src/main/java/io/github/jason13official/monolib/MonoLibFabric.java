@@ -7,6 +7,8 @@ import io.github.jason13official.monolib.impl.common.registry.ModMenus;
 import io.github.jason13official.monolib.impl.common.registry.ModParticles;
 import io.github.jason13official.monolib.impl.common.registry.ModTabs;
 import io.github.jason13official.monolib.impl.common.registry.ModTiles;
+import io.github.jason13official.monolib.impl.common.util.GsonConfigMapper;
+import io.github.jason13official.monolib.platform.Services;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import net.fabricmc.api.ModInitializer;
@@ -50,7 +52,8 @@ public class MonoLibFabric implements ModInitializer {
 
     @Override
     public void onResourceManagerReload(ResourceManager resourceManager) {
-      // ModConfig.load(Services.PLATFORM.getConfigDirectory());
+      // load config on resource reload
+      GsonConfigMapper.loadAll(Services.PLATFORM.getConfigDirectory());
     }
   }
 }
