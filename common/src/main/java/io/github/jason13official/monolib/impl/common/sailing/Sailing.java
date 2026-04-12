@@ -1,6 +1,7 @@
 package io.github.jason13official.monolib.impl.common.sailing;
 
 import io.github.jason13official.monolib.Constants;
+import io.github.jason13official.monolib.MonoLib;
 import io.github.jason13official.monolib.impl.common.ModConfig;
 import io.github.jason13official.monolib.impl.common.util.GsonConfigMapper;
 import io.github.jason13official.monolib.platform.Services;
@@ -26,7 +27,7 @@ public class Sailing {
 
   public static void verifyAndAlert() {
 
-    if (verified || !((ModConfig) GsonConfigMapper.get(Constants.MOD_ID)).verifyModFilenames) {
+    if (verified || !((ModConfig) GsonConfigMapper.get(MonoLib.identifier("server").toString())).verifyModFilenames) {
       return;
     }
 

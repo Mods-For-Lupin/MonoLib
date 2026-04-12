@@ -1,5 +1,6 @@
 package io.github.jason13official.monolib;
 
+import io.github.jason13official.monolib.impl.common.command.ModCommands;
 import io.github.jason13official.monolib.impl.common.registry.ModBlocks;
 import io.github.jason13official.monolib.impl.common.registry.ModEntities;
 import io.github.jason13official.monolib.impl.common.registry.ModItems;
@@ -22,6 +23,7 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -48,6 +50,9 @@ public class MonoLibForge {
     bind(Registries.CREATIVE_MODE_TAB, ModTabs::register);
 
     EVENT_BUS.addListener((Consumer<FMLCommonSetupEvent>) event -> MonoLib.init());
+
+    MinecraftForge.EVENT_BUS.addListener((Consumer<RegisterCommandsEvent>) event ->
+        ModCommands.register(event.getDispatcher(), event.getContext(), event.getCommandSelection()));
 
     MinecraftForge.EVENT_BUS.addListener((Consumer<AddReloadListenerEvent>) event -> {
       event.addListener(new ResourceReloadListener());
