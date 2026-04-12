@@ -52,13 +52,13 @@ public class MonoLibForge {
     EVENT_BUS.addListener((Consumer<FMLCommonSetupEvent>) event -> MonoLib.init());
 
     MinecraftForge.EVENT_BUS.addListener((Consumer<RegisterCommandsEvent>) event ->
-        ModCommands.register(event.getDispatcher(), event.getContext(), event.getCommandSelection()));
+        ModCommands.register(event.getDispatcher(), event.getBuildContext(), event.getCommandSelection()));
 
     MinecraftForge.EVENT_BUS.addListener((Consumer<AddReloadListenerEvent>) event -> {
       event.addListener(new ResourceReloadListener());
     });
 
-    EVENT_BUS.addListener((Consumer<ServerStartedEvent>) event -> {
+    MinecraftForge.EVENT_BUS.addListener((Consumer<ServerStartedEvent>) event -> {
       Sailing.verifyAndAlert();
     });
 

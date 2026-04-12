@@ -2,6 +2,15 @@ plugins {
     id 'multiloader-loader'
     id 'fabric-loom'
 }
+
+repositories {
+    // for cardinal components API
+    maven {
+        name = 'Ladysnake Mods'
+        url = 'https://maven.ladysnake.org/releases'
+    }
+}
+
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
     mappings loom.layered {
@@ -12,6 +21,27 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
     implementation project(":common")
+
+
+    // dependency for Trinkets
+    modApi compileOnly("dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.2.3")
+    modApi compileOnly("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.2.3")
+    // dependency for EnderPack
+    modImplementation "curse.maven:trinkets-341284:5173501"
+    modImplementation("curse.maven:enderpack-959446:6200716")
+
+    modImplementation("curse.maven:dis-enchanting-table-933354:6581597")
+    modImplementation("curse.maven:more-beautiful-torches-860325:5263631")
+    modImplementation("curse.maven:golden-foods-873866:5860674")
+    modImplementation("curse.maven:automessage-868624:6661952")
+    modImplementation("curse.maven:stackable-stew-and-soup-886735:5982840")
+    modImplementation("curse.maven:new-shield-variants-884272:6835805")
+    modImplementation("curse.maven:new-slab-variants-896385:5725924")
+    modImplementation("curse.maven:animal-armor-trims-1008327:6313689")
+    modImplementation("curse.maven:eat-an-omelette-859307:5875966")
+
+    // applies a mixin on Item, fails in dev environment
+    // modImplementation("curse.maven:more-bows-and-arrows-888468:6843671")
 }
 
 loom {

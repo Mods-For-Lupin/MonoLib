@@ -48,6 +48,23 @@ sourceSets.main.resources.srcDir 'src/generated/resources'
 dependencies {
     compileOnly project(":common")
     annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
+
+    // dependency for EnderPack
+    modImplementation("curse.maven:curios-309927:6418456")
+    modImplementation("curse.maven:enderpack-959446:6200716")
+
+    modImplementation("curse.maven:dis-enchanting-table-933354:6581597")
+    modImplementation("curse.maven:more-beautiful-torches-860325:5263631")
+    modImplementation("curse.maven:golden-foods-873866:5860674")
+    modImplementation("curse.maven:automessage-868624:6661952")
+    modImplementation("curse.maven:stackable-stew-and-soup-886735:5982840")
+    modImplementation("curse.maven:new-shield-variants-884272:6835805")
+    modImplementation("curse.maven:new-slab-variants-896385:5725924")
+    modImplementation("curse.maven:animal-armor-trims-1008327:6313689")
+    modImplementation("curse.maven:eat-an-omelette-859307:5875966")
+
+    // applies a mixin on Item, fails in dev environment
+    // modImplementation("curse.maven:more-bows-and-arrows-888468:6843671")
 }
 
 jar {
