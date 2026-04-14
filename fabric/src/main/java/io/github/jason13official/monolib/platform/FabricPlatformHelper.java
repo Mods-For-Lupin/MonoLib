@@ -12,7 +12,9 @@ import net.fabricmc.loader.api.metadata.ModOrigin.Kind;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.CreativeModeTab.Builder;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.SpawnEggItem;
 
 public class FabricPlatformHelper implements IPlatformHelper {
@@ -63,9 +65,8 @@ public class FabricPlatformHelper implements IPlatformHelper {
     return FabricItemGroup.builder();
   }
 
-  @Override
-  public SpawnEggItem createSpawnEggItem(Supplier<EntityType<? extends Mob>> typeSupplier, int background, int highlight, Properties properties) {
-
-    return new SpawnEggItem(typeSupplier.get(), background, highlight, properties);
-  }
+  // @Override
+  // public Item createSpawnEgg(EntityType<? extends Mob> type, int background, int highlight, Item.Properties properties) {
+  //   return Items.STONE;
+  // }
 }

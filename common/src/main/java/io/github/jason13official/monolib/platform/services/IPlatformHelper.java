@@ -2,11 +2,11 @@ package io.github.jason13official.monolib.platform.services;
 
 import java.nio.file.Path;
 import java.util.List;
-import java.util.function.Supplier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item.Properties;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.SpawnEggItem;
 
 public interface IPlatformHelper {
@@ -54,5 +54,5 @@ public interface IPlatformHelper {
 
   CreativeModeTab.Builder tabBuilder();
 
-  SpawnEggItem createSpawnEggItem(Supplier<EntityType<? extends Mob>> typeSupplier, int background, int highlight, Properties properties);
+  // Item createSpawnEgg(EntityType<? extends Mob> type, int background, int highlight, Item.Properties properties);
 }

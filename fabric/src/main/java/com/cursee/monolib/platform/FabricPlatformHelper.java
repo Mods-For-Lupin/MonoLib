@@ -42,9 +42,4 @@ public class FabricPlatformHelper implements IPlatformHelper {
   public Builder tabBuilder() {
     return Services.PLATFORM.tabBuilder();
   }
-
-  @Override
-  public SpawnEggItem createSpawnEggItem(Supplier<EntityType<? extends Mob>> typeSupplier, int background, int highlight, Properties properties) {
-    return Services.PLATFORM.createSpawnEggItem(typeSupplier, background, highlight, properties);
-  }
 }

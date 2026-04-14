@@ -25,7 +25,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.server.ServerStartedEvent;
-import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -51,8 +50,7 @@ public class MonoLibForge {
 
     EVENT_BUS.addListener((Consumer<FMLCommonSetupEvent>) event -> MonoLib.init());
 
-    MinecraftForge.EVENT_BUS.addListener((Consumer<RegisterCommandsEvent>) event ->
-        ModCommands.register(event.getDispatcher(), event.getBuildContext(), event.getCommandSelection()));
+    MinecraftForge.EVENT_BUS.addListener((Consumer<RegisterCommandsEvent>) event -> ModCommands.register(event.getDispatcher(), event.getBuildContext(), event.getCommandSelection()));
 
     MinecraftForge.EVENT_BUS.addListener((Consumer<AddReloadListenerEvent>) event -> {
       event.addListener(new ResourceReloadListener());

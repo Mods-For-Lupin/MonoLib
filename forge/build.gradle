@@ -49,25 +49,47 @@ dependencies {
     compileOnly project(":common")
     annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
 
+
+    // modImplementation("curse.maven:monolib-968432:6544057")
+
     // dependency for EnderPack
-    modImplementation("curse.maven:curios-309927:6418456")
-    modImplementation("curse.maven:enderpack-959446:6200716")
+    // modImplementation("curse.maven:curios-309927:6418456")
+    // modImplementation("curse.maven:enderpack-959446:6200716")
 
-    modImplementation("curse.maven:dis-enchanting-table-933354:6581597")
-    modImplementation("curse.maven:more-beautiful-torches-860325:5263631")
-    modImplementation("curse.maven:golden-foods-873866:5860674")
-    modImplementation("curse.maven:automessage-868624:6661952")
+    modImplementation("curse.maven:modernfix-790626:7911677")
     modImplementation("curse.maven:stackable-stew-and-soup-886735:5982840")
-    modImplementation("curse.maven:new-shield-variants-884272:6835805")
-    modImplementation("curse.maven:new-slab-variants-896385:5725924")
-    modImplementation("curse.maven:animal-armor-trims-1008327:6313689")
-    modImplementation("curse.maven:eat-an-omelette-859307:5875966")
+    modImplementation("curse.maven:more-bows-and-arrows-888468:6843671")
 
-    // applies a mixin on Item, fails in dev environment
-    // modImplementation("curse.maven:more-bows-and-arrows-888468:6843671")
+//    modImplementation("curse.maven:dis-enchanting-table-933354:6581597")
+//    modImplementation("curse.maven:more-beautiful-torches-860325:5263631")
+//    modImplementation("curse.maven:golden-foods-873866:5860674")
+//    modImplementation("curse.maven:automessage-868624:6661952")
+//    modImplementation("curse.maven:new-shield-variants-884272:6835805")
+//    modImplementation("curse.maven:new-slab-variants-896385:5725924")
+//    modImplementation("curse.maven:animal-armor-trims-1008327:6313689")
+//    modImplementation("curse.maven:eat-an-omelette-859307:5875966")
+//
+//    modImplementation("curse.maven:more-useful-copper-2-0-983503:7853478")
+//    modImplementation("curse.maven:healthy-water-921753:5980643")
+//    modImplementation("curse.maven:danger-close-858922:6433614")
+//    modImplementation("curse.maven:time-on-display-958881:5152430")
+//    modImplementation("curse.maven:longer-following-time-1148090:6952683")
+//    modImplementation("curse.maven:mob-drops-recipes-overworld-967869:5206182")
+//    modImplementation("curse.maven:mob-drops-recipes-nether-968546:6084953")
+//    modImplementation("curse.maven:mob-drops-recipes-end-968685:5135707")
+//    modImplementation("curse.maven:overclocked-watches-968047:6067239")
+//
+//    modImplementation("curse.maven:peaceful-hunger-1034453:7108486")
+//    modImplementation("curse.maven:unlocked-typing-1373339:7364813")
 }
 
 jar {
     finalizedBy('reobfJar')
+
+    // forge why are you screwing with me...
+    from(rootProject.file('pack.forge.mcmeta')) {
+        rename { "pack.mcmeta" }
+    }
+
     manifest.attributes(["MixinConfigs": "${mod_id}.mixins.json,${mod_id}.forge.mixins.json"])
 }

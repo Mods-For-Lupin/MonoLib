@@ -12,5 +12,5 @@ forgix {
 
     forge()
 
-    autoRun = true
+    // autoRun = true
 }

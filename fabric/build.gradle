@@ -30,6 +30,7 @@ dependencies {
     modImplementation "curse.maven:trinkets-341284:5173501"
     modImplementation("curse.maven:enderpack-959446:6200716")
 
+    modImplementation("curse.maven:more-bows-and-arrows-888468:6843671")
     modImplementation("curse.maven:dis-enchanting-table-933354:6581597")
     modImplementation("curse.maven:more-beautiful-torches-860325:5263631")
     modImplementation("curse.maven:golden-foods-873866:5860674")
@@ -40,8 +41,18 @@ dependencies {
     modImplementation("curse.maven:animal-armor-trims-1008327:6313689")
     modImplementation("curse.maven:eat-an-omelette-859307:5875966")
 
-    // applies a mixin on Item, fails in dev environment
-    // modImplementation("curse.maven:more-bows-and-arrows-888468:6843671")
+    modImplementation("curse.maven:more-useful-copper-2-0-983503:7853478")
+    modImplementation("curse.maven:healthy-water-921753:5980643")
+    modImplementation("curse.maven:danger-close-858922:6433614")
+    modImplementation("curse.maven:time-on-display-958881:5152430")
+    modImplementation("curse.maven:longer-following-time-1148090:6952683")
+    modImplementation("curse.maven:mob-drops-recipes-overworld-967869:5206182")
+    modImplementation("curse.maven:mob-drops-recipes-nether-968546:6084953")
+    modImplementation("curse.maven:mob-drops-recipes-end-968685:5135707")
+    modImplementation("curse.maven:overclocked-watches-968047:6067239")
+
+    modImplementation("curse.maven:peaceful-hunger-1034453:7108486")
+    modImplementation("curse.maven:unlocked-typing-1373339:7364813")
 }
 
 loom {

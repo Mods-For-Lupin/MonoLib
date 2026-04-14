@@ -5,13 +5,12 @@ import io.github.jason13official.monolib.platform.services.IPlatformHelper;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTab.Builder;
-import net.minecraft.world.item.Item.Properties;
-import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLLoader;
@@ -61,9 +60,11 @@ public class ForgePlatformHelper implements IPlatformHelper {
     return CreativeModeTab.builder();
   }
 
-  @Override
-  public SpawnEggItem createSpawnEggItem(Supplier<EntityType<? extends Mob>> typeSupplier, int background, int highlight, Properties properties) {
-
-    return new ForgeSpawnEggItem(typeSupplier, background, highlight, properties);
-  }
+  // using new <? extends Item>() eagerly loads that class during service loading;
+  // with a side effect of loading Item too early.
+  // @Override
+  // public Item createSpawnEgg(EntityType<? extends Mob> type, int background, int highlight, Item.Properties properties) {
+  //   return new ForgeSpawnEggItem(() -> type, background, highlight, properties);
+  //   // return Items.EGG;
+  // }
 }

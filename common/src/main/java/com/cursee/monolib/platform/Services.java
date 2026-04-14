@@ -1,6 +1,7 @@
 package com.cursee.monolib.platform;
 
 import com.cursee.monolib.platform.services.IPlatformHelper;
+import com.cursee.monolib.platform.services.IRegisterHelper;
 import io.github.jason13official.monolib.Constants;
 import java.util.ServiceLoader;
 
@@ -9,6 +10,9 @@ public class Services {
 
   @Deprecated
   public static final IPlatformHelper PLATFORM = load(IPlatformHelper.class);
+
+  @Deprecated
+  public static final IRegisterHelper REGISTER = load(IRegisterHelper.class);
 
   @Deprecated
   public static <T> T load(Class<T> clazz) {

@@ -4,12 +4,7 @@ import com.cursee.monolib.platform.services.IPlatformHelper;
 import io.github.jason13official.monolib.platform.Services;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.function.Supplier;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.CreativeModeTab.Builder;
-import net.minecraft.world.item.Item.Properties;
-import net.minecraft.world.item.SpawnEggItem;
 
 public class ForgePlatformHelper implements IPlatformHelper {
 
@@ -43,8 +38,4 @@ public class ForgePlatformHelper implements IPlatformHelper {
     return Services.PLATFORM.tabBuilder();
   }
 
-  @Override
-  public SpawnEggItem createSpawnEggItem(Supplier<EntityType<? extends Mob>> typeSupplier, int background, int highlight, Properties properties) {
-    return Services.PLATFORM.createSpawnEggItem(typeSupplier, background, highlight, properties);
-  }
 }

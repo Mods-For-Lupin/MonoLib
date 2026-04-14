@@ -2,12 +2,7 @@ package com.cursee.monolib.platform.services;
 
 import java.nio.file.Path;
 import java.util.List;
-import java.util.function.Supplier;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item.Properties;
-import net.minecraft.world.item.SpawnEggItem;
 
 @Deprecated
 public interface IPlatformHelper {
@@ -41,7 +36,4 @@ public interface IPlatformHelper {
 
   @Deprecated
   CreativeModeTab.Builder tabBuilder();
-
-  @Deprecated
-  SpawnEggItem createSpawnEggItem(Supplier<EntityType<? extends Mob>> typeSupplier, int background, int highlight, Properties properties);
 }
