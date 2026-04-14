@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(java --version)",
-      "Bash(find \"D:/gitkraken/Mods-For-Lupin/MonoLib.worktrees/1.20.1/mc_decomp\" -name \"*.java\" -exec grep -l \"getOrThrow\" {} \\\\;)",
-      "Bash(JAVA_HOME=\"C:/Program Files/Eclipse Adoptium/jdk-17.0.15.6-hotspot\" ./gradlew forge:runClient:*)"
-    ]
-  }
-}
