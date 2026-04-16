@@ -32,6 +32,8 @@ public class MonoLibFabric implements ModInitializer {
   @Override
   public void onInitialize() {
 
+    MonoLib.initConfig();
+
     bind(BuiltInRegistries.BLOCK, ModBlocks::register);
     bind(BuiltInRegistries.ENTITY_TYPE, ModEntities::register);
     bind(BuiltInRegistries.ITEM, ModItems::register);

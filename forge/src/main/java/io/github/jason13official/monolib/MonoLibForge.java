@@ -40,6 +40,8 @@ public class MonoLibForge {
   public MonoLibForge(final FMLJavaModLoadingContext context) {
     EVENT_BUS = context.getModEventBus();
 
+    MonoLib.initConfig();
+
     bind(Registries.BLOCK, ModBlocks::register);
     bind(Registries.ENTITY_TYPE, ModEntities::register);
     bind(Registries.ITEM, ModItems::register);

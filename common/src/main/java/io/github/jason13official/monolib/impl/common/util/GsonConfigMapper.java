@@ -19,7 +19,8 @@ public class GsonConfigMapper {
 
   public static <T> void register(String id, Class<T> clazz, String filename) {
     if (REGISTRY.containsKey(id)) {
-      throw new IllegalStateException("Config already registered for id: " + id);
+      Constants.LOG.info("Config already registered for id: {}", id);
+      return;
     }
     REGISTRY.put(id, new ConfigEntry<>(clazz, filename));
   }
