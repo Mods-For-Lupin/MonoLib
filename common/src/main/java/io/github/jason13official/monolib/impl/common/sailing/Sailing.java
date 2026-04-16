@@ -31,6 +31,8 @@ public class Sailing {
       return;
     }
 
+    Constants.LOG.info("Verifying registered mod filenames...");
+
     List<String> failedIds = new ArrayList<>();
     List<Path> installedModFilepaths = Services.PLATFORM.getInstalledModPaths();
     List<String> installedModFilenames = installedModFilepaths.stream().map(path -> FilenameUtils.getName(path.toString())).toList();

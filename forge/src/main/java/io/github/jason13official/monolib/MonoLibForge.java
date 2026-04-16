@@ -48,9 +48,13 @@ public class MonoLibForge {
     bind(Registries.MENU, ModMenus::register);
     bind(Registries.CREATIVE_MODE_TAB, ModTabs::register);
 
-    EVENT_BUS.addListener((Consumer<FMLCommonSetupEvent>) event -> MonoLib.init());
+    EVENT_BUS.addListener((Consumer<FMLCommonSetupEvent>) event -> {
+      MonoLib.init();
+    });
 
-    MinecraftForge.EVENT_BUS.addListener((Consumer<RegisterCommandsEvent>) event -> ModCommands.register(event.getDispatcher(), event.getBuildContext(), event.getCommandSelection()));
+    MinecraftForge.EVENT_BUS.addListener((Consumer<RegisterCommandsEvent>) event -> {
+      ModCommands.register(event.getDispatcher(), event.getBuildContext(), event.getCommandSelection());
+    });
 
     MinecraftForge.EVENT_BUS.addListener((Consumer<AddReloadListenerEvent>) event -> {
       event.addListener(new ResourceReloadListener());
