@@ -54,6 +54,7 @@ public class ForgePlatformHelper implements IPlatformHelper {
     return paths;
   }
 
+  @Deprecated
   @Override
   public Builder tabBuilder() {
 

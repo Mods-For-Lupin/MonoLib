@@ -52,6 +52,7 @@ public interface IPlatformHelper {
 
   List<Path> getInstalledModPaths();
 
+  @Deprecated
   CreativeModeTab.Builder tabBuilder();
 
   // Item createSpawnEgg(EntityType<? extends Mob> type, int background, int highlight, Item.Properties properties);

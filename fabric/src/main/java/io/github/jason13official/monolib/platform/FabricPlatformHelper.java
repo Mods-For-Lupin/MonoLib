@@ -59,6 +59,7 @@ public class FabricPlatformHelper implements IPlatformHelper {
     return paths;
   }
 
+  @Deprecated
   @Override
   public Builder tabBuilder() {
 

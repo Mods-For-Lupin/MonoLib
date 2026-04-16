@@ -2,6 +2,7 @@ package io.github.jason13official.monolib.mixin;
 
 import com.cursee.monolib.callback.AnvilEventsFabric;
 import com.cursee.monolib.core.event.FabricModAnvilEvents;
+import io.github.jason13official.monolib.impl.common.event.MonoLibFabricAnvilMenuEvents;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -11,6 +12,7 @@ import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.inventory.ItemCombinerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -19,61 +21,67 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import oshi.util.tuples.Triplet;
 
-@Deprecated(forRemoval = true)
-@Mixin(value = AnvilMenu.class, priority = 1002) /// apply after Collective's injection at a similar point
+@Mixin(AnvilMenu.class)
 public abstract class FabricAnvilMenuMixin extends ItemCombinerMenu {
 
-    @Shadow private String itemName;
-    @Shadow private int repairItemCountCost;
-    @Final @Shadow private DataSlot cost;
+  @Shadow
+  private String itemName;
 
-    /// START CREATE_RESULT EVENT
+  @Shadow
+  @Final
+  private DataSlot cost;
 
-    /** This differs slightly from Collective, which targets TAIL rather than RETURN */
-    @Inject(method = "createResult()V", at = @At(value= "RETURN"))
-    public void monolib$createResult(CallbackInfo info) {
+  @Shadow
+  private int repairItemCountCost;
 
-        AnvilMenu instance = (AnvilMenu) (Object) this;
-        Container injected$inputSlots = this.inputSlots;
+  /// unused constructor
+  public FabricAnvilMenuMixin(@Nullable MenuType<?> type, int containerId, Inventory playerInventory, ContainerLevelAccess access) {
+    super(type, containerId, playerInventory, access);
+  }
 
-        ItemStack injected$slotLeft = injected$inputSlots.getItem(0);
-        ItemStack injected$slotRight = injected$inputSlots.getItem(1);
-        ItemStack injected$slotOutput = this.resultSlots.getItem(0);
+  @Inject(at = @At("RETURN"), method = "createResult")
+  private void monolib$createResult(CallbackInfo ci) {
 
-        int injected$baseCost = injected$slotLeft.getBaseRepairCost() + (injected$slotRight.isEmpty() ? 0 : injected$slotRight.getBaseRepairCost());
+    AnvilMenu self = (AnvilMenu) (Object) this;
+    Container inputSlots = this.inputSlots;
 
-        Triplet<Integer, Integer, ItemStack> injected$triple = FabricModAnvilEvents.CREATE_RESULT.invoker().createResult(instance, injected$slotLeft, injected$slotRight, injected$slotOutput, itemName, injected$baseCost, this.player);
+    ItemStack input, extra, output;
+    input = inputSlots.getItem(0);
+    extra = inputSlots.getItem(1);
+    output = this.resultSlots.getItem(0);
 
-        /// Catch events registered to deprecated handlers
-        if (injected$triple == null) {
-            injected$triple = AnvilEventsFabric.UPDATE.invoker().onUpdate(instance, injected$slotLeft, injected$slotRight, injected$slotOutput, itemName, injected$baseCost, this.player);
-            if (injected$triple == null) {
-                injected$triple = AnvilEventsFabric.UPDATE.invoker().onUpdate(instance, injected$slotLeft, injected$slotRight, injected$slotOutput, itemName, injected$baseCost, this.player);
-            }
-        }
+    int baseCost = input.getBaseRepairCost() + (extra.isEmpty() ? 0 : extra.getBaseRepairCost());
 
-        if (injected$triple == null) return;
+    Triplet<Integer, Integer, ItemStack> result = MonoLibFabricAnvilMenuEvents.CREATE_RESULT.invoker().createResult(self, input, extra, output, this.itemName, baseCost, this.player);
 
-        if (injected$triple.getA() >= 0) cost.set(injected$triple.getA());
-
-        if (injected$triple.getB() >= 0) repairItemCountCost = injected$triple.getB();
-
-        if (injected$triple.getC() != null) this.resultSlots.setItem(0, injected$triple.getC());
+    // check for deprecated event handlers, this should be removed "eventually"
+    if (result == null) {
+      result = AnvilEventsFabric.UPDATE.invoker().onUpdate(self, input, extra, output, this.itemName, baseCost, this.player);
+      if (result == null) {
+        FabricModAnvilEvents.CREATE_RESULT.invoker().createResult(self, input, extra, output, this.itemName, baseCost, this.player);
+      }
     }
 
-    /// END CREATE_RESULT EVENT
-    /// blank
-    /// START ON_TAKE EVENT
-
-    @Inject(method = "onTake", at = @At("HEAD"))
-    private void monolib$onTakeHEAD(Player player, ItemStack stack, CallbackInfo ci) {
-        AnvilMenu instance = (AnvilMenu) (Object) this;
-        FabricModAnvilEvents.ON_TAKE.invoker().onTake(instance, player, stack, this.inputSlots.getItem(0), this.inputSlots.getItem(1));
+    if (result == null) {
+      return;
     }
 
-    /// END ON_TAKE EVENT
-
-    public FabricAnvilMenuMixin(MenuType<?> menuType, int containerID, Inventory inventory, ContainerLevelAccess containerLevelAccess) {
-        super(menuType, containerID, inventory, containerLevelAccess);
+    if (result.getA() > 0) {
+      this.cost.set(result.getA());
     }
+
+    if (result.getB() > 0) {
+      this.repairItemCountCost = result.getB();
+    }
+
+    if (result.getC() != null) {
+      this.resultSlots.setItem(0, result.getC());
+    }
+  }
+
+  @Inject(at = @At("HEAD"), method = "onTake")
+  private void monolib$onTake(Player player, ItemStack stack, CallbackInfo ci) {
+    AnvilMenu self = (AnvilMenu) (Object) this;
+    MonoLibFabricAnvilMenuEvents.ON_TAKE.invoker().onTake(self, player, stack, this.inputSlots.getItem(0), this.inputSlots.getItem(1));
+  }
 }

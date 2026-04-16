@@ -6,7 +6,7 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "FabricAnvilBlockMixin",
-    "FabricAnvilMenuMixin"
+    "DeprecatedFabricAnvilMenuMixin"
   ],
   "client": [
     "FabricTitleScreenMixin"
