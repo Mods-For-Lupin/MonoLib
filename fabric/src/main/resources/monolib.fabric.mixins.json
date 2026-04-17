@@ -4,7 +4,10 @@
   "package": "io.github.jason13official.monolib.mixin",
   "refmap": "${mod_id}.refmap.json",
   "compatibilityLevel": "JAVA_21",
-  "mixins": [],
+  "mixins": [
+    "FabricAnvilBlockMixin",
+    "FabricAnvilMenuMixin"
+  ],
   "client": [
     "FabricTitleScreenMixin"
   ],
@@ -13,4 +16,3 @@
     "defaultRequire": 1
   }
 }
-  
