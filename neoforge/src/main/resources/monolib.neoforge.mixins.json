@@ -3,9 +3,12 @@
   "minVersion": "0.8",
   "package": "io.github.jason13official.monolib.mixin",
   "compatibilityLevel": "JAVA_21",
-  "mixins": [],
+  "mixins": [
+    "NeoForgeAnvilBlockMixin"
+  ],
   "client": [
-    "NeoForgeTitleScreenMixin"
+    "NeoForgeTitleScreenMixin",
+    "NeoForgeMinecraftMixin"
   ],
   "server": [],
   "injectors": {

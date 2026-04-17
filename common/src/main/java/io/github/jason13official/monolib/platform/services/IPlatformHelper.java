@@ -1,12 +1,8 @@
 package io.github.jason13official.monolib.platform.services;
 
 import java.nio.file.Path;
-import java.util.function.Supplier;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
+import java.util.List;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item.Properties;
-import net.minecraft.world.item.SpawnEggItem;
 
 public interface IPlatformHelper {
 
@@ -49,7 +45,8 @@ public interface IPlatformHelper {
     return getGameDirectory().resolve("config");
   }
 
+  @Deprecated
   CreativeModeTab.Builder tabBuilder();
 
-  SpawnEggItem createSpawnEggItem(Supplier<EntityType<? extends Mob>> typeSupplier, int background, int highlight, Properties properties);
+  List<Path> getInstalledModPaths();
 }

@@ -22,7 +22,7 @@ issueTrackerURL="${mod_url}/issues" #optional
 [[dependencies.${mod_id}]] #optional
     modId = "neoforge" #mandatory
     type="required" #mandatory (Can be one of "required", "optional", "incompatible" or "discouraged")
-    versionRange = "[${neoforge_version},)" #mandatory
+    versionRange = "[21.1.80,)" #mandatory
     ordering = "NONE" # The order that this dependency should load in relation to your mod, required to be either 'BEFORE' or 'AFTER' if the dependency is not mandatory
     side = "BOTH" # Side this dependency is applied on - 'BOTH', 'CLIENT' or 'SERVER'
 

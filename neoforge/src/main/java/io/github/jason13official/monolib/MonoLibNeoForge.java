@@ -1,5 +1,6 @@
 package io.github.jason13official.monolib;
 
+import io.github.jason13official.monolib.impl.common.command.ModCommands;
 import io.github.jason13official.monolib.impl.common.registry.ModBlocks;
 import io.github.jason13official.monolib.impl.common.registry.ModEntities;
 import io.github.jason13official.monolib.impl.common.registry.ModItems;
@@ -7,6 +8,9 @@ import io.github.jason13official.monolib.impl.common.registry.ModMenus;
 import io.github.jason13official.monolib.impl.common.registry.ModParticles;
 import io.github.jason13official.monolib.impl.common.registry.ModTabs;
 import io.github.jason13official.monolib.impl.common.registry.ModTiles;
+import io.github.jason13official.monolib.impl.common.sailing.Sailing;
+import io.github.jason13official.monolib.impl.common.util.GsonConfigMapper;
+import io.github.jason13official.monolib.platform.Services;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import net.minecraft.core.Registry;
@@ -23,6 +27,8 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
+import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
 @Mod(Constants.MOD_ID)
@@ -34,6 +40,8 @@ public class MonoLibNeoForge {
 
     EVENT_BUS = modEventBus;
 
+    MonoLib.initConfig();
+
     bind(Registries.BLOCK, ModBlocks::register);
     bind(Registries.ENTITY_TYPE, ModEntities::register);
     bind(Registries.ITEM, ModItems::register);
@@ -44,8 +52,16 @@ public class MonoLibNeoForge {
 
     EVENT_BUS.addListener((Consumer<FMLCommonSetupEvent>) event -> MonoLib.init());
 
+    NeoForge.EVENT_BUS.addListener((Consumer<RegisterCommandsEvent>) event -> {
+      ModCommands.register(event.getDispatcher(), event.getBuildContext(), event.getCommandSelection());
+    });
+
     NeoForge.EVENT_BUS.addListener((Consumer<AddReloadListenerEvent>) event -> {
       event.addListener(new ResourceReloadListener());
+    });
+
+    NeoForge.EVENT_BUS.addListener((Consumer<ServerStartedEvent>) event -> {
+      Sailing.verifyAndAlert();
     });
 
     if (FMLLoader.getDist() == Dist.CLIENT) {
@@ -71,7 +87,7 @@ public class MonoLibNeoForge {
 
     @Override
     protected void apply(Void unused, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
-      // ModConfig.load(Services.PLATFORM.getConfigDirectory());
+      GsonConfigMapper.loadAll(Services.PLATFORM.getConfigDirectory());
     }
 
     @Override
