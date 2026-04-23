@@ -14,7 +14,7 @@ public class MonoLib {
   }
 
   public static void init() {
-    Sailing.register(Constants.MOD_ID, createFilename(Constants.MOD_ID, "1.21.1", "4.0.0"));
+    Sailing.register(Constants.MOD_ID, createFilename(Constants.MOD_ID, "1.21.1", "4.0.2"));
   }
 
   public static ResourceLocation identifier(final String path) {
