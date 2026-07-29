@@ -1,6 +1,6 @@
 package io.github.jason13official.monolib;
 
-import io.github.jason13official.monolib.impl.common.command.ModCommands;
+import io.github.jason13official.monolib.impl.common.registry.ModCommands;
 import io.github.jason13official.monolib.impl.common.registry.ModBlocks;
 import io.github.jason13official.monolib.impl.common.registry.ModEntities;
 import io.github.jason13official.monolib.impl.common.registry.ModItems;
@@ -18,9 +18,6 @@ import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
-import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.ModContainer;
-import net.fabricmc.loader.api.metadata.ModOrigin.Kind;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;

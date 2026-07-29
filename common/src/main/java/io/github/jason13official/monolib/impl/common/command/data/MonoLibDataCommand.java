@@ -7,7 +7,7 @@ import com.mojang.brigadier.context.CommandContext;
 import io.github.jason13official.monolib.Constants;
 import io.github.jason13official.monolib.MonoLib;
 import io.github.jason13official.monolib.impl.common.ModConfig;
-import io.github.jason13official.monolib.impl.common.command.ModCommands;
+import io.github.jason13official.monolib.impl.common.registry.ModCommands;
 import io.github.jason13official.monolib.impl.common.command.data.arg.FormatArgument;
 import io.github.jason13official.monolib.impl.common.command.data.arg.SlotArgument;
 import io.github.jason13official.monolib.impl.common.util.GsonConfigMapper;

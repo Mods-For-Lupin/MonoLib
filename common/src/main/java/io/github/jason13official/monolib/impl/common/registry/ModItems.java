@@ -12,6 +12,8 @@ public class ModItems {
 
   public static void register(BiConsumer<Item, ResourceLocation> consumer) {
 
-    consumer.accept(Services.registry().createSpawnEgg(EntityType.COW, 0x000000, 0xFFFFFF, new Properties()), MonoLib.identifier("safe_service_egg"));
+    if (Services.PLATFORM.isDevelopmentEnvironment()) {
+      consumer.accept(Services.registry().createSpawnEgg(EntityType.COW, 0x000000, 0xFFFFFF, new Properties()), MonoLib.identifier("safe_service_egg"));
+    }
   }
 }
