@@ -12,8 +12,9 @@ import net.minecraft.world.item.SpawnEggItem;
 public class NeoForgeRegistryHelper implements IRegistryHelper {
 
   @Override
-  public SpawnEggItem createSpawnEggItem(Supplier<EntityType<? extends Mob>> typeSupplier, int background, int highlight, Properties properties) {
-    return new SpawnEggItem(properties.spawnEgg(typeSupplier.get()));
+  public SpawnEggItem createSpawnEgg(EntityType<? extends Mob> type, int background, int highlight, Properties properties) {
+
+    return new SpawnEggItem(properties.spawnEgg(type));
   }
 
   @Override
