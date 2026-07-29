@@ -51,7 +51,6 @@ public class FabricPlatformHelper implements IPlatformHelper {
     FabricLoader.getInstance().getAllMods().forEach(modContainer -> {
 
       if (modContainer.getOrigin().getKind() == Kind.PATH) {
-        // Constants.LOG.info("{}", modContainer.getOrigin().getPaths().get(0));
         paths.add(modContainer.getOrigin().getPaths().get(0));
       }
     });
@@ -65,9 +64,4 @@ public class FabricPlatformHelper implements IPlatformHelper {
 
     return FabricItemGroup.builder();
   }
-
-  // @Override
-  // public Item createSpawnEgg(EntityType<? extends Mob> type, int background, int highlight, Item.Properties properties) {
-  //   return Items.STONE;
-  // }
 }

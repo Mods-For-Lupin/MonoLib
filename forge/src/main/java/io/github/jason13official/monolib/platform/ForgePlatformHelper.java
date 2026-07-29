@@ -47,7 +47,6 @@ public class ForgePlatformHelper implements IPlatformHelper {
     List<Path> paths = new ArrayList<>();
 
     FMLLoader.getLoadingModList().getMods().forEach(modInfo -> {
-      // Constants.LOG.info("{}", modInfo.getOwningFile().getFile().getFilePath());
       paths.add(modInfo.getOwningFile().getFile().getFilePath());
     });
 
@@ -60,12 +59,4 @@ public class ForgePlatformHelper implements IPlatformHelper {
 
     return CreativeModeTab.builder();
   }
-
-  // using new <? extends Item>() eagerly loads that class during service loading;
-  // with a side effect of loading Item too early.
-  // @Override
-  // public Item createSpawnEgg(EntityType<? extends Mob> type, int background, int highlight, Item.Properties properties) {
-  //   return new ForgeSpawnEggItem(() -> type, background, highlight, properties);
-  //   // return Items.EGG;
-  // }
 }
