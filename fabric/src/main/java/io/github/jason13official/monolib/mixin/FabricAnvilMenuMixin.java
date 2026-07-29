@@ -3,7 +3,6 @@ package io.github.jason13official.monolib.mixin;
 import com.cursee.monolib.callback.AnvilEventsFabric;
 import com.cursee.monolib.core.event.FabricModAnvilEvents;
 import io.github.jason13official.monolib.impl.common.event.MonoLibFabricAnvilMenuEvents;
-import java.util.Objects;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
@@ -52,7 +51,7 @@ public abstract class FabricAnvilMenuMixin extends ItemCombinerMenu {
     extra = inputSlots.getItem(1);
     output = this.resultSlots.getItem(0);
 
-    int baseCost = Objects.requireNonNull(input.get(DataComponents.REPAIR_COST)) + (extra.isEmpty() ? 0 : Objects.requireNonNull(extra.get(DataComponents.REPAIR_COST)));
+    int baseCost = input.getOrDefault(DataComponents.REPAIR_COST, 0) + (extra.isEmpty() ? 0 : extra.getOrDefault(DataComponents.REPAIR_COST, 0));
 
     Triplet<Integer, Integer, ItemStack> result = MonoLibFabricAnvilMenuEvents.CREATE_RESULT.invoker().createResult(self, input, extra, output, this.itemName, baseCost, this.player);
 
