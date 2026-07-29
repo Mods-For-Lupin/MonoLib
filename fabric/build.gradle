@@ -22,6 +22,10 @@ dependencies {
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
     implementation project(":common")
 
+    // for config in fabric
+    implementation 'com.electronwill.night-config:toml:3.6.0'
+    include 'com.electronwill.night-config:core:3.6.0'
+    include 'com.electronwill.night-config:toml:3.6.0'
 
     // dependency for Trinkets
     modApi compileOnly("dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.2.3")
