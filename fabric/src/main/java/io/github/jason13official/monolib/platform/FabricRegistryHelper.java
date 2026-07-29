@@ -12,9 +12,9 @@ import net.minecraft.world.item.SpawnEggItem;
 public class FabricRegistryHelper implements IRegistryHelper {
 
   @Override
-  public SpawnEggItem createSpawnEggItem(Supplier<EntityType<? extends Mob>> typeSupplier, int background, int highlight, Properties properties) {
+  public SpawnEggItem createSpawnEgg(EntityType<? extends Mob> type, int background, int highlight, Properties properties) {
 
-    return new SpawnEggItem(typeSupplier.get(), background, highlight, properties);
+    return new SpawnEggItem(type, background, highlight, properties);
   }
 
   @Override

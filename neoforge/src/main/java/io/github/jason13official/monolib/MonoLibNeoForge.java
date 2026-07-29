@@ -1,6 +1,6 @@
 package io.github.jason13official.monolib;
 
-import io.github.jason13official.monolib.impl.common.command.ModCommands;
+import io.github.jason13official.monolib.impl.common.registry.ModCommands;
 import io.github.jason13official.monolib.impl.common.registry.ModBlocks;
 import io.github.jason13official.monolib.impl.common.registry.ModEntities;
 import io.github.jason13official.monolib.impl.common.registry.ModItems;

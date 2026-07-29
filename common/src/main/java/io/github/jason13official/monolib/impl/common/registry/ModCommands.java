@@ -1,4 +1,4 @@
-package io.github.jason13official.monolib.impl.common.command;
+package io.github.jason13official.monolib.impl.common.registry;
 
 import com.mojang.brigadier.CommandDispatcher;
 import io.github.jason13official.monolib.Constants;

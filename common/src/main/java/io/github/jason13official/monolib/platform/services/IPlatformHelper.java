@@ -45,8 +45,8 @@ public interface IPlatformHelper {
     return getGameDirectory().resolve("config");
   }
 
+  List<Path> getInstalledModPaths();
+
   @Deprecated
   CreativeModeTab.Builder tabBuilder();
-
-  List<Path> getInstalledModPaths();
 }

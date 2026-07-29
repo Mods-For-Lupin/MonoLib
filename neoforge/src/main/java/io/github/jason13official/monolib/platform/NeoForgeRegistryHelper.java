@@ -13,9 +13,9 @@ import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 public class NeoForgeRegistryHelper implements IRegistryHelper {
 
   @Override
-  public SpawnEggItem createSpawnEggItem(Supplier<EntityType<? extends Mob>> typeSupplier, int background, int highlight, Properties properties) {
+  public SpawnEggItem createSpawnEgg(EntityType<? extends Mob> type, int background, int highlight, Properties properties) {
 
-    return new DeferredSpawnEggItem(typeSupplier, background, highlight, properties);
+    return new DeferredSpawnEggItem(() -> type, background, highlight, properties);
   }
 
   @Override
