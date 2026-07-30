@@ -46,7 +46,7 @@ public class ModConfigIO {
     }
   }
 
-  private static void loadConfig(Path configDir, String filename, Class<?> clazz) {
+  public static void loadConfig(Path configDir, String filename, Class<?> clazz) {
 
     if (!hasConfigFields(clazz)) {
       Constants.dev("Skipping " + filename + " as " + clazz.getName() + " has no public static fields of io.github.jason13official.monolib.api.common.config.Commented");
@@ -133,18 +133,18 @@ public class ModConfigIO {
   }
 
   @SuppressWarnings({ "rawtypes", "unchecked" })
-  private static void loadEntry(CommentedFileConfig config, Commented commented) {
+  public static void loadEntry(CommentedFileConfig config, Commented commented) {
     Object value = config.getOrElse(commented.key(), commented.get());
     commented.set(value);
   }
 
-  private static void saveEntry(CommentedFileConfig config, Commented<?> commented) {
+  public static void saveEntry(CommentedFileConfig config, Commented<?> commented) {
     config.setComment(commented.key(), " " + commented.comment());
     config.set(commented.key(), commented.get());
   }
 
   /// check that the class contains public static [Commented] fields
-  private static boolean hasConfigFields(Class<?> clazz) {
+  public static boolean hasConfigFields(Class<?> clazz) {
     return Arrays.stream(clazz.getFields())
         .filter(f -> Modifier.isStatic(f.getModifiers()))
         .anyMatch(f -> Commented.class.isAssignableFrom(f.getType()));
