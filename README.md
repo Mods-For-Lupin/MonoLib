@@ -1,4 +1,4 @@
-Mods-For-Lupin/**New-Mod-Template** is a customized implementation of [MultiLoader-Template](https://github.com/jaredlll08/MultiLoader-Template) for writing multi-loader (Fabric, (Neo)Forge) compatible mods, and supports exporting merged JAR files via a `mergeJarsCustom` task based on [Forgix](https://github.com/PacifistMC/Forgix)
+Mods-For-Lupin/**MonoLib** is the backing library mod of mods created for [Lupin](https://www.curseforge.com/members/lupin/projects) by [Jason13](https://www.curseforge.com/members/jason13official/projects)
 
 - [1.20.1](https://github.com/Mods-For-Lupin/MonoLib/tree/1.20.1)
 - [1.21.1](https://github.com/Mods-For-Lupin/MonoLib/tree/1.21.1)
