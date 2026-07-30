@@ -13,10 +13,13 @@ public class MonoLib {
 
   @SuppressWarnings("removal") // GsonConfigMapper marked for removal
   public static void initConfig() {
+
+    // backwards compatibility to eventually remove
     GsonConfigMapper.register(identifier("server").toString(), ModConfig.class, "monolib-server.json");
     GsonConfigMapper.loadAll(Services.PLATFORM.getConfigDirectory());
     final ModConfig config = GsonConfigMapper.get(MonoLib.identifier("server").toString());
-    CommonModConfig.DEBUG.setter().accept(config.additionalDebugLogs);
+    CommonModConfig.DEBUG.set(config.additionalDebugLogs);
+    CommonModConfig.VERIFY_JARS.set(config.verifyModFilenames);
 
     // development environment only test, "monolib_test-common.toml"
     DeveloperConfigTest.performGetterSetterTest();

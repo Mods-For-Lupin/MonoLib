@@ -62,13 +62,6 @@ public class ModConfigIO {
         config.load();
       }
 
-      // region LFTCopy
-//      ADDED_SECONDS.setter().accept(config.getOrElse(ADDED_SECONDS.key(), ADDED_SECONDS.getter().get()));
-//
-//      config.setComment(ADDED_SECONDS.key(), " The amount of additional time that mobs will follow the player. Default: 4.0");
-//      config.set(ADDED_SECONDS.key(), ADDED_SECONDS.getter().get());
-      // endregion LFTCopy
-
       for (Field field : clazz.getFields()) {
 
         Commented<?> commented = (Commented<?>) field.get(null);
@@ -87,13 +80,13 @@ public class ModConfigIO {
 
   @SuppressWarnings({ "rawtypes", "unchecked" })
   private static void loadEntry(CommentedFileConfig config, Commented commented) {
-    Object value = config.getOrElse(commented.key(), commented.getter().get());
-    commented.setter().accept(value);
+    Object value = config.getOrElse(commented.key(), commented.get());
+    commented.set(value);
   }
 
   private static void saveEntry(CommentedFileConfig config, Commented<?> commented) {
     config.setComment(commented.key(), " " + commented.comment());
-    config.set(commented.key(), commented.getter().get());
+    config.set(commented.key(), commented.get());
   }
 
   /// check that the class contains public static [Commented] fields
