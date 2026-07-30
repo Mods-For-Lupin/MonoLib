@@ -3,6 +3,7 @@ package io.github.jason13official.monolib.impl.common.sailing;
 import io.github.jason13official.monolib.Constants;
 import io.github.jason13official.monolib.impl.common.CommonModConfig;
 import io.github.jason13official.monolib.platform.Services;
+import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -10,62 +11,89 @@ import java.util.List;
 import java.util.Map;
 import org.apache.commons.io.FilenameUtils;
 
-/// Massively simplified moving forward, compared to deprecated Sailing and SailingWarden.
-///
-/// <p>Verifies that registered mods are being created from their respective JAR files.</p>
-///
-/// <p>Mods use [Sailing#register] to link a mod ID to an expected filename which may contain
-/// the String `merged` which will be swapped for mod-loader titles during check.</p>
+/// registers a mod ID `monolib` to an expected filename `monolib-fabric-1.20.1-4.1.0.jar`
 public class Sailing {
 
   private static final Map<String, String> FILENAME_BY_MOD_ID = new LinkedHashMap<>();
+  private static final List<String> LOADER_STRINGS = List.of("fabric", "forge", "neoforge");
   private static final List<String> LOADER_VARIANTS = List.of("merged", "fabric", "forge", "neoforge");
   private static boolean verified = false;
 
   public static void register(String modId, String expectedFilename) {
-    if (!FILENAME_BY_MOD_ID.containsKey(modId)) {
-      FILENAME_BY_MOD_ID.put(modId, expectedFilename);
-    } else {
-      Constants.LOG.info("Attempted to overwrite expected filename for mod ID {} in MonoLib's Sailing (Anti-Piracy) API", modId);
+
+    // ignore if verified or not meant to verify
+    if (verified || !CommonModConfig.VERIFY_JARS.get()) {
+
+      // explicitly set to true in case config is returning early
+      verified = true;
+      return;
     }
+
+    FILENAME_BY_MOD_ID.putIfAbsent(modId, expectedFilename);
   }
 
   public static void verifyAndAlert() {
 
+    // ignore if verified or not meant to verify
     if (verified || !CommonModConfig.VERIFY_JARS.get()) {
+
+      // explicitly set to true in case config is returning early
+      verified = true;
       return;
     }
 
-    Constants.LOG.info("Verifying registered mod filenames...");
+    Path gameDir = Services.PLATFORM.getGameDirectory();
+    File modsDirectory = new File(gameDir.resolve("mods").toUri());
 
-    List<String> failedIds = new ArrayList<>();
-    List<Path> installedModFilepaths = Services.PLATFORM.getInstalledModPaths();
-    List<String> installedModFilenames = installedModFilepaths.stream().map(path -> FilenameUtils.getName(path.toString())).toList();
+    Constants.LOG.info("Verifying registered JAR filenames");
 
-    FILENAME_BY_MOD_ID.forEach((modId, expectedFilename) -> {
-      boolean found = LOADER_VARIANTS.stream().anyMatch(loader -> installedModFilenames.contains(expectedFilename.replace("-merged-", "-" + loader + "-")));
+    if (!modsDirectory.isDirectory()) {
+
+      Constants.LOG.info("Did not find expected \"mods\" folder, skipping verification. Tried: {}", modsDirectory.getAbsolutePath());
+      return;
+    }
+
+    List<Path> modPaths = Services.PLATFORM.getInstalledModPaths();
+    List<String> modFilenames = modPaths.stream().map(p -> FilenameUtils.getName(p.toString())).toList();
+
+    List<String> notFoundModIds = new ArrayList<>();
+    FILENAME_BY_MOD_ID.forEach((modId, expected) -> {
+
+      // explicitly check the expected name first
+      boolean found = modFilenames.contains(expected);
+
+      // then try swapping loader for "merged" until found
+      // i.e. some of our mods are released merged JARs examplemod-merged-1.20.1-0.1.0.jar
+      // some are released loader-specific examplemod-fabric-1.20.1-0.1.0.jar, but they all follow
+      // <mod_id>-<loader>-<mc_version>-<mod_version>.jar
       if (!found) {
-        failedIds.add(modId);
+        for (String loaderString : LOADER_STRINGS) {
+          if (!found) {
+            found = modFilenames.contains(expected.replace(loaderString, "merged"))
+                || modFilenames.contains(expected.replace("merged", loaderString));
+          }
+        }
       }
+
+      if (!found) notFoundModIds.add(modId);
     });
 
-    if (failedIds.isEmpty()) {
+    if (notFoundModIds.isEmpty()) {
+
+      Constants.LOG.info("Found all registered filenames.");
+      verified = true;
       return;
     }
 
-    failedIds.forEach(s -> {
-      Constants.LOG.info("Mod ID: {} expected filename similar to {}", s, FILENAME_BY_MOD_ID.get(s));
-    });
+    for (String notFoundModId : notFoundModIds) {
 
-    Constants.LOG.info("You a receiving this message because one or more of your mod files may have been altered and possibly not downloaded from an original and safe source.");
+      Constants.LOG.info("Failed to find expected filename {} (or \"merged\" variant) for mod ID that registered it {}", FILENAME_BY_MOD_ID.get(notFoundModId), notFoundModId);
+    }
+
+    Constants.LOG.info("You are receiving this message because one or more of your mod files may have been altered and possibly not downloaded from an original and safe source.");
     Constants.LOG.info("Unofficial sources can contain malicious software or host outdated versions of mods, as well as removing ad revenue from mod authors.");
     Constants.LOG.info("Check out https://stopmodreposts.github.io/ for more information on why this feature exists.");
-    Constants.LOG.info("Disable this check by updating 'config/monolib-server.json'");
-
-    Constants.LOG.warn("You a receiving this message because one or more of your mod files may have been altered and possibly not downloaded from an original and safe source.");
-    Constants.LOG.warn("Unofficial sources can contain malicious software or host outdated versions of mods, as well as removing ad revenue from mod authors.");
-    Constants.LOG.warn("Check out https://stopmodreposts.github.io/ for more information on why this feature exists.");
-    Constants.LOG.info("Disable this check by updating 'config/monolib-server.json'");
+    Constants.LOG.info("Disable this check by updating \"config/monolib-common.toml\"");
 
     verified = true;
   }
