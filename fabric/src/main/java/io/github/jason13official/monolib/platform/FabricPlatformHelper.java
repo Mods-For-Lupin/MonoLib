@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
+import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.metadata.ModOrigin.Kind;
@@ -56,6 +57,12 @@ public class FabricPlatformHelper implements IPlatformHelper {
     });
 
     return paths;
+  }
+
+  @Override
+  public boolean isClientSide() {
+
+    return FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT;
   }
 
   @Deprecated

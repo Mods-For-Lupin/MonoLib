@@ -52,6 +52,8 @@ public interface IPlatformHelper {
 
   List<Path> getInstalledModPaths();
 
+  boolean isClientSide();
+
   @Deprecated
   CreativeModeTab.Builder tabBuilder();
 }
