@@ -1,5 +1,6 @@
 package io.github.jason13official.monolib;
 
+import io.github.jason13official.monolib.impl.common.config.ModConfigIO;
 import io.github.jason13official.monolib.impl.common.registry.ModCommands;
 import io.github.jason13official.monolib.impl.common.registry.ModBlocks;
 import io.github.jason13official.monolib.impl.common.registry.ModEntities;
@@ -9,7 +10,6 @@ import io.github.jason13official.monolib.impl.common.registry.ModParticles;
 import io.github.jason13official.monolib.impl.common.registry.ModTabs;
 import io.github.jason13official.monolib.impl.common.registry.ModTiles;
 import io.github.jason13official.monolib.impl.common.sailing.Sailing;
-import io.github.jason13official.monolib.impl.common.util.GsonConfigMapper;
 import io.github.jason13official.monolib.platform.Services;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -65,7 +65,7 @@ public class MonoLibFabric implements ModInitializer {
     @Override
     public void onResourceManagerReload(ResourceManager resourceManager) {
       // load config on resource reload
-      GsonConfigMapper.loadAll(Services.PLATFORM.getConfigDirectory());
+      ModConfigIO.load(Services.PLATFORM.getConfigDirectory());
     }
   }
 }

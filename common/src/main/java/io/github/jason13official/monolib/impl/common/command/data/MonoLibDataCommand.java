@@ -5,12 +5,10 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import io.github.jason13official.monolib.Constants;
-import io.github.jason13official.monolib.MonoLib;
-import io.github.jason13official.monolib.impl.common.ModConfig;
+import io.github.jason13official.monolib.impl.common.CommonModConfig;
 import io.github.jason13official.monolib.impl.common.registry.ModCommands;
 import io.github.jason13official.monolib.impl.common.command.data.arg.FormatArgument;
 import io.github.jason13official.monolib.impl.common.command.data.arg.SlotArgument;
-import io.github.jason13official.monolib.impl.common.util.GsonConfigMapper;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
@@ -29,8 +27,7 @@ public class MonoLibDataCommand {
 
   public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
 
-    final ModConfig config = GsonConfigMapper.get(MonoLib.identifier("server").toString());
-    if (config.additionalDebugLogs) {
+    if (CommonModConfig.DEBUG.get()) {
       Constants.LOG.info("Registering \"/monolib data <slot> <format>\" command...");
     }
 
