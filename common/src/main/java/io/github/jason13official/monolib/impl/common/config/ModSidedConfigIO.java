@@ -39,12 +39,12 @@ public class ModSidedConfigIO {
 
         // get
         if (config.contains(commented.key())) {
-          commented.setter().accept(config.get(commented.key()));
+          commented.set(config.get(commented.key()));
         }
 
         // set
         config.setComment(commented.key(), " " + commented.comment());
-        config.set(commented.key(), commented.getter().get());
+        config.set(commented.key(), commented.get());
       });
 
       config.save();

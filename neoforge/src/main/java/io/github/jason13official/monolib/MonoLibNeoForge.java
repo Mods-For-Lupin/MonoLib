@@ -1,5 +1,6 @@
 package io.github.jason13official.monolib;
 
+import io.github.jason13official.monolib.impl.common.config.ModConfigIO;
 import io.github.jason13official.monolib.impl.common.registry.ModCommands;
 import io.github.jason13official.monolib.impl.common.registry.ModBlocks;
 import io.github.jason13official.monolib.impl.common.registry.ModEntities;
@@ -9,7 +10,6 @@ import io.github.jason13official.monolib.impl.common.registry.ModParticles;
 import io.github.jason13official.monolib.impl.common.registry.ModTabs;
 import io.github.jason13official.monolib.impl.common.registry.ModTiles;
 import io.github.jason13official.monolib.impl.common.sailing.Sailing;
-import io.github.jason13official.monolib.impl.common.util.GsonConfigMapper;
 import io.github.jason13official.monolib.platform.Services;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -87,7 +87,8 @@ public class MonoLibNeoForge {
 
     @Override
     protected void apply(Void unused, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
-      GsonConfigMapper.loadAll(Services.PLATFORM.getConfigDirectory());
+      // load config on resource reload
+      ModConfigIO.load(Services.PLATFORM.getConfigDirectory());
     }
 
     @Override

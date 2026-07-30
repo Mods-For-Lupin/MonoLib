@@ -4,8 +4,7 @@ import com.cursee.monolib.core.sailing.warden.SailingWarden;
 import com.cursee.monolib.platform.Services;
 import io.github.jason13official.monolib.Constants;
 import io.github.jason13official.monolib.MonoLib;
-import io.github.jason13official.monolib.impl.common.ModConfig;
-import io.github.jason13official.monolib.impl.common.util.GsonConfigMapper;
+import io.github.jason13official.monolib.impl.common.CommonModConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.SharedConstants;
 import net.minecraft.network.chat.ClickEvent;
@@ -66,7 +65,7 @@ public class Sailing {
         final boolean ENTITY_IS_PLAYER = entity instanceof Player;
 
         // final boolean VERIFY_JAR_CONFIG_VALUE = CommonConfigValues.enable_jar_verification;
-        final boolean VERIFY_JAR_CONFIG_VALUE = ((ModConfig) GsonConfigMapper.get(MonoLib.identifier("server"))).verifyModFilenames;
+        final boolean VERIFY_JAR_CONFIG_VALUE = CommonModConfig.VERIFY_JARS.get();
 
         final boolean INSTANCE_UNVERIFIED = UNVERIFIED_INSTANCE.get();
         final boolean ENTITY_CHECKED = entity.getTags().contains(CHECKED_TAG);

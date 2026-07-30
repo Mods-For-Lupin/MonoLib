@@ -11,4 +11,12 @@ public class CommonModConfig {
       value -> debug = value,
       "Whether to log additional information to the console."
   );
+
+  private static boolean verifyJars = false;
+  public static Commented<Boolean> VERIFY_JARS = new Commented<>(
+      "verify_jars",
+      () -> verifyJars,
+      value -> verifyJars = value,
+      "Whether to scan for JAR filenames registered to MonoLib's \"Sailing\" anti-piracy subsystem. \n Check out stopmodreposts.org for information on why this feature exists"
+  );
 }
