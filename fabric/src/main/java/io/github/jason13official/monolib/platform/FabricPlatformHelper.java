@@ -4,6 +4,7 @@ import io.github.jason13official.monolib.platform.services.IPlatformHelper;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.metadata.ModOrigin.Kind;
@@ -36,12 +37,6 @@ public class FabricPlatformHelper implements IPlatformHelper {
   }
 
   @Override
-  public Builder tabBuilder() {
-
-    return FabricItemGroup.builder();
-  }
-
-  @Override
   public List<Path> getInstalledModPaths() {
 
     List<Path> paths = new ArrayList<>();
@@ -54,5 +49,17 @@ public class FabricPlatformHelper implements IPlatformHelper {
     });
 
     return paths;
+  }
+
+  @Override
+  public boolean isClientSide() {
+
+    return FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT;
+  }
+
+  @Override
+  public Builder tabBuilder() {
+
+    return FabricItemGroup.builder();
   }
 }

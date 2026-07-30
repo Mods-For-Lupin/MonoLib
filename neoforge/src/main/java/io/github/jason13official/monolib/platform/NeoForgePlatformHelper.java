@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTab.Builder;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLLoader;
 
@@ -36,12 +37,6 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
   }
 
   @Override
-  public Builder tabBuilder() {
-
-    return CreativeModeTab.builder();
-  }
-
-  @Override
   public List<Path> getInstalledModPaths() {
 
     List<Path> paths = new ArrayList<>();
@@ -51,5 +46,17 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
     });
 
     return paths;
+  }
+
+  @Override
+  public boolean isClientSide() {
+
+    return FMLLoader.getDist() == Dist.CLIENT;
+  }
+
+  @Override
+  public Builder tabBuilder() {
+
+    return CreativeModeTab.builder();
   }
 }
