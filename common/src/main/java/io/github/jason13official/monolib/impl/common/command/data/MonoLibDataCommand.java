@@ -15,6 +15,8 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.permissions.PermissionLevel;
+import net.minecraft.server.permissions.Permissions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
@@ -37,7 +39,7 @@ public class MonoLibDataCommand {
     var formatExecution = Commands.argument(FORMAT, StringArgumentType.word()).suggests(FormatArgument::suggestion).executes(MonoLibDataCommand::execute);
     var slotArgWithFormat = Commands.argument(SLOT, StringArgumentType.word()).suggests(SlotArgument::suggestion).then(formatExecution);
     var dataSubWithArgs = Commands.literal(DATA).then(slotArgWithFormat);
-    var monolibComWithDataSub = Commands.literal(Constants.MOD_ID).then(dataSubWithArgs);
+    var monolibComWithDataSub = Commands.literal(Constants.MOD_ID).requires(source -> source.permissions().hasPermission(Permissions.COMMANDS_MODERATOR)).then(dataSubWithArgs);
 
     dispatcher.register(monolibComWithDataSub);
   }
