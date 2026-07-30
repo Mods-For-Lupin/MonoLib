@@ -78,6 +78,60 @@ public class ModConfigIO {
     }
   }
 
+  /// write current in-memory values of [Commented] fields of given classes to their
+  /// respective files (for use after a config command)
+  public static void save(Class<?> clazz) {
+
+    String filename = filenameFor(clazz);
+    if (filename == null) {
+      Constants.LOG.info("Cannot save config for {} as it is not a registered config class", clazz.getName());
+      return;
+    }
+
+    Path configDir = Services.PLATFORM.getConfigDirectory();
+    File configDirectory = new File(configDir.toUri());
+    if (!configDirectory.isDirectory() && !configDirectory.mkdirs()) {
+      Constants.LOG.info("Failed to get or create config directory {}", configDirectory.getAbsolutePath());
+      return;
+    }
+
+    Path configFilepath = configDir.resolve(filename);
+    File configFile = new File(configFilepath.toUri());
+
+    try (CommentedFileConfig config = CommentedFileConfig.builder(configFile).build()) {
+
+      if (Files.exists(configFilepath)) {
+        config.load();
+      }
+
+      for (Field field : clazz.getFields()) {
+
+        Commented<?> commented = (Commented<?>) field.get(null);
+        saveEntry(config, commented);
+      }
+
+      config.save();
+    } catch (Exception e) {
+
+      Constants.LOG.info("Failed to save config file {}", configFile.getAbsolutePath());
+      e.printStackTrace();
+    }
+  }
+
+  private static String filenameFor(Class<?> clazz) {
+
+    if (clazz == CommonModConfig.class) {
+      return COMMON_FILENAME;
+    }
+    if (clazz == ClientModConfig.class) {
+      return CLIENT_FILENAME;
+    }
+    if (clazz == ServerModConfig.class) {
+      return SERVER_FILENAME;
+    }
+    return null;
+  }
+
   @SuppressWarnings({ "rawtypes", "unchecked" })
   private static void loadEntry(CommentedFileConfig config, Commented commented) {
     Object value = config.getOrElse(commented.key(), commented.get());
