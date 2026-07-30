@@ -34,11 +34,13 @@ public class MonoLibDataCommand {
       Constants.LOG.info("Registering \"/monolib data <slot> <format>\" command...");
     }
 
+    // constructs the command in reverse from terminating point to root node
     var formatExecution = Commands.argument(FORMAT, StringArgumentType.word()).suggests(FormatArgument::suggestion).executes(MonoLibDataCommand::execute);
     var slotArgWithFormat = Commands.argument(SLOT, StringArgumentType.word()).suggests(SlotArgument::suggestion).then(formatExecution);
     var dataSubWithArgs = Commands.literal(DATA).then(slotArgWithFormat);
-    var monolibComWithDataSub = Commands.literal(Constants.MOD_ID).requires(source -> source.permissions().hasPermission(Permissions.COMMANDS_MODERATOR)).then(dataSubWithArgs);
+    var monolibComWithDataSub = Commands.literal(Constants.MOD_ID).requires(source -> source.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER)).then(dataSubWithArgs);
 
+    // registers our full data sub-command under /monolib
     dispatcher.register(monolibComWithDataSub);
   }
 
@@ -52,14 +54,18 @@ public class MonoLibDataCommand {
 
     try {
 
+      // gather supplied arguments as strings
       String slotName = StringArgumentType.getString(context, SLOT);
       String formatName = StringArgumentType.getString(context, FORMAT);
 
+      // get corresponding value of each string
       SlotArgument slotArgument = SlotArgument.valueOf(slotName.toUpperCase());
       FormatArgument formatArgument = FormatArgument.valueOf(formatName.toUpperCase());
 
+      // get selected stack from player
       ItemStack itemStack = slotArgument.getItemFromEntity(player);
 
+      // send formatted text component on success
       source.sendSuccess(() -> formatArgument.getFormat().formatItem(itemStack, source.getLevel()), false);
 
     } catch (IllegalArgumentException e) {
