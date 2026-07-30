@@ -1,5 +1,6 @@
 package io.github.jason13official.monolib;
 
+import io.github.jason13official.monolib.impl.common.CommonModConfig;
 import io.github.jason13official.monolib.impl.common.ModConfig;
 import io.github.jason13official.monolib.impl.common.config.DeveloperConfigTest;
 import io.github.jason13official.monolib.impl.common.config.ModConfigIO;
@@ -10,9 +11,12 @@ import net.minecraft.resources.Identifier;
 
 public class MonoLib {
 
+  @SuppressWarnings("removal") // GsonConfigMapper marked for removal
   public static void initConfig() {
     GsonConfigMapper.register(identifier("server").toString(), ModConfig.class, "monolib-server.json");
     GsonConfigMapper.loadAll(Services.PLATFORM.getConfigDirectory());
+    final ModConfig config = GsonConfigMapper.get(MonoLib.identifier("server").toString());
+    CommonModConfig.DEBUG.setter().accept(config.additionalDebugLogs);
 
     // development environment only test, "monolib_test-common.toml"
     DeveloperConfigTest.performGetterSetterTest();

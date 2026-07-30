@@ -12,6 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import net.minecraft.resources.Identifier;
 
+@Deprecated(since = "4.1.0", forRemoval = true)
 public class GsonConfigMapper {
 
   private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
@@ -92,15 +93,18 @@ public class GsonConfigMapper {
     }
 
     private void save(Path configDir) {
-      Path file = configDir.resolve(filename);
-      try {
-        Files.createDirectories(configDir);
-        try (Writer writer = Files.newBufferedWriter(file)) {
-          GSON.toJson(instance, writer);
-        }
-      } catch (IOException e) {
-        Constants.LOG.error("Failed to save config '{}'", filename, e);
-      }
+
+      Constants.dev("Attempted to save " + this.filename + " using the deprecated config system, ignoring.");
+
+//      Path file = configDir.resolve(filename);
+//      try {
+//        Files.createDirectories(configDir);
+//        try (Writer writer = Files.newBufferedWriter(file)) {
+//          GSON.toJson(instance, writer);
+//        }
+//      } catch (IOException e) {
+//        Constants.LOG.error("Failed to save config '{}'", filename, e);
+//      }
     }
   }
 }
