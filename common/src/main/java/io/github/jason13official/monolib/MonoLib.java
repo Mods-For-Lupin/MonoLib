@@ -1,6 +1,7 @@
 package io.github.jason13official.monolib;
 
 import io.github.jason13official.monolib.impl.common.ModConfig;
+import io.github.jason13official.monolib.impl.common.config.DeveloperConfigTest;
 import io.github.jason13official.monolib.impl.common.sailing.Sailing;
 import io.github.jason13official.monolib.impl.common.util.GsonConfigMapper;
 import io.github.jason13official.monolib.platform.Services;
@@ -12,6 +13,8 @@ public class MonoLib {
   public static void initConfig() {
     GsonConfigMapper.register(identifier("server").toString(), ModConfig.class, "monolib-server.json");
     GsonConfigMapper.loadAll(Services.PLATFORM.getConfigDirectory());
+
+    DeveloperConfigTest.performGetterSetterTest();
   }
 
   public static void init() {
