@@ -1,1 +1,2 @@
-# MonoLib 26.1.2 (Fabric/NeoForge)
+# MonoLib for Minecraft 26.1.2 (Fabric/NeoForge)
+
